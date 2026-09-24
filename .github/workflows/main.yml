@@ -1,0 +1,41 @@
+name: ci
+
+on:
+  pull_request:
+    types: [opened,synchronize]
+    branches:
+      - main
+      - test
+  workflow_dispatch:
+      
+jobs:
+  my-second-job:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: CHECKOUT
+        uses: actions/checkout@v4
+        with:
+            ref: test
+            
+      - name: install java
+        uses: actions/setup-java@v5
+        with:
+          java-version: 17
+          distribution: "zulu"
+
+
+      - name: version
+        run: "java -version"
+
+      - name: install
+        run: "mvn compile"
+
+      - name: testins
+        run: "mvn package -DskipTests"  
+
+      - name: start-test
+        run: "mvn test"
+      
+      - name: result
+        run: echo "Test complete"
