@@ -6,6 +6,7 @@ on:
     branches:
       - main
       - test
+      - fnl
   workflow_dispatch:
       
 jobs:
